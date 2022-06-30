@@ -9,18 +9,29 @@ import numpy as np
 from shapely.geometry import Polygon, LineString, Point
 from multiprocessing import Pool
 
-
 # Argument and parameter specification
-parser = argparse.ArgumentParser(description="Tile generator tool (STDL)")
-parser.add_argument('--labels' , type=str  , help='Label geographic file')
+parser = argparse.ArgumentParser()
+parser.add_argument('--input' , type=str  , help='input geographic file - railways')
+parser.add_argument('--mask' , type=str  , help='mask geographic file')
 parser.add_argument('--size'   , type=int  , help='Tile size in meters' )
 parser.add_argument('--output' , type=str  , help='Output directory', default='.')
 args = parser.parse_args()
 
 # import osm dataset
-labels = gpd.read_file(args.labels)
+tracks = gpd.read_file(args.input)
+tracks = tracks.to_crs(2056)
+geom = tracks.geometry
+buffer = geom.buffer(200)
+labels = gpd.GeoDataFrame(geometry = buffer)
+labels = labels.dissolve()
+labels = labels.explode(index_parts = True).reset_index(drop=True)
 
-labels = labels.to_crs(2056)
+if args.mask is not None:
+
+    mask = gpd.read_file(args.mask)
+    mask = mask.to_crs(2056)
+
+    labels = gpd.clip(labels, mask)
 
 ##labels.to_file("C:\\Users\\user\\Documents\\Msc\\MachineLearningImages\\Data\\processed\\gis_osm_pois_class.shp")
 
