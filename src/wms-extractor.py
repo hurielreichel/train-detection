@@ -22,14 +22,6 @@ labels = gpd.read_file(args.labels)
 
 labels = labels.to_crs(2056)
 
-# select only labels for training
-sel = ['fire_station', 'graveyard', 'hospital', 'park', 'pitch', 'playground', 'stadium', 'wastewater_plant', 'castle', 'college', 'dog_park', 'drinking_water', 'school', 'prison', 'zoo', 'fountain', 'theme_park', 'golf_course']
-
-# classify different features as park - simplify
-labels = labels[labels['fclass'].isin(sel)]
-ls = ['pitch', 'dog_park', 'theme_park', 'playground']
-labels.loc[labels.fclass.isin(ls),'fclass']='park'
-
 ##labels.to_file("C:\\Users\\user\\Documents\\Msc\\MachineLearningImages\\Data\\processed\\gis_osm_pois_class.shp")
 
 # create tiles over all of Switzerland
