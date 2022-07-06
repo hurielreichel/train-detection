@@ -6,7 +6,9 @@ import time
 import numpy as np
 from optparse import OptionParser
 import pickle
+from matplotlib import pyplot as plt
 
+import pandas as pd
 from keras import backend as K
 #from tensorflow.keras.optimizers import Adam, SGD, RMSprop
 from keras.optimizers import Adam, SGD, RMSprop
@@ -165,6 +167,10 @@ class_mapping_inv = {v: k for k, v in class_mapping.items()}
 print('Starting training')
 
 vis = True
+##############################
+perdida_total = []
+promedio_total = []
+####################
 
 for epoch_num in range(num_epochs):
 
@@ -271,6 +277,8 @@ for epoch_num in range(num_epochs):
 					print('Elapsed time: {}'.format(time.time() - start_time))
 
 				curr_loss = loss_rpn_cls + loss_rpn_regr + loss_class_cls + loss_class_regr
+				perdida_total.append(curr_loss)
+				promedio_total.append(mean_overlapping_bboxes)
 				iter_num = 0
 				start_time = time.time()
 
@@ -279,11 +287,25 @@ for epoch_num in range(num_epochs):
 						print('Total loss decreased from {} to {}, saving weights'.format(best_loss,curr_loss))
 					best_loss = curr_loss
 					model_all.save_weights(C.model_path)
-
 				break
 
 		except Exception as e:
 			print('Exception: {}'.format(e))
 			continue
+
+df_loss = pd.DataFrame({'total_loss': perdida_total, 'mAP': promedio_total} )
+df_loss.to_csv('total_loss.csv')
+
+plt.plot(range(num_epochs), perdida_total, label="loss")
+plt.legend(loc="upper left")
+plt.savefig('loss_function.png')
+
+plt.plot(range(num_epochs), promedio_total, label="mAP")
+plt.legend(loc="upper left")
+plt.savefig('mAP_loss.png')
+plt.clf()
+plt.plot(range(num_epochs), promedio_total, label="mAP")
+plt.legend(loc="upper left")
+plt.savefig('mAP.png')
 
 print('Training complete, exiting.')
