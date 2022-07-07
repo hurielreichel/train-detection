@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from osgeo import gdal,osr
+#from osgeo import gdal,osr
 import rasterio
 from pyproj.crs import CRS
 from rasterio.plot import show
@@ -13,18 +13,19 @@ from rasterio.mask import mask
 import pycrs
 
 files = os.listdir('si-2018')
+grid_step = 1000
 #raster = rasterio.open(os.path.join('C:\\Users\\yalej\\OneDrive\\Documents\\Msc\\AnalysisHigh\\FinalProject\\si-2018', files[0]))
 mask_total= gpd.GeoDataFrame()
 for file in files:
     raster = rasterio.open(os.path.join('si-2018', file))
     minx, miny = raster.bounds.left, raster.bounds.bottom
-    maxx, maxy = raster.bounds.left+100, raster.bounds.bottom+100
+    maxx, maxy = raster.bounds.left+grid_step, raster.bounds.bottom+grid_step
     raster.close()
 
     min_x, max_x, min_y, max_y = minx, maxx, miny, maxy
-    for i in range(10):
+    for i in range(grid_step/1000):#number of pixels = the result is the number of steps desired to clip the image
         miny, maxy = min_y, max_y
-        for j in range (10):
+        for j in range (grid_step/1000):
             p1 = geometry.Point(minx,miny)
             p2 = geometry.Point(maxx,miny)
             p3 = geometry.Point(maxx,maxy)
@@ -36,8 +37,8 @@ for file in files:
             mask_bb = gpd.GeoDataFrame({'geometry': bbox}, index=[0], crs=from_epsg(2056))
             mask_total = gpd.GeoDataFrame(pd.concat([mask_total, mask_bb], ignore_index=True),crs=from_epsg(2056))
 
-            miny, maxy = miny + 100, maxy + 100
-        minx, maxx = minx + 100, maxx + 100
+            miny, maxy = miny + grid_step, maxy + grid_step
+        minx, maxx = minx + grid_step, maxx + grid_step
 
 mask_total = mask_total.set_crs(epsg=2056)
 mask_total = mask_total.drop_duplicates()
@@ -77,7 +78,7 @@ labels_inter.to_file("labels.geojson", driver='GeoJSON')
 
 ################################################################################33
 
-'''files = os.listdir('C:\\Users\\yalej\\OneDrive\\Documents\\Msc\\AnalysisHigh\\FinalProject\\si-2018')
+'''files = os.listdir('C:\\Users\\yalej\\Documents\\Msc\\AnalysisHigh\\FinalProject\\si-2018')
 raster = gdal.Open(os.path.join('all-images-256', files[0]))
 raster = gdal.Open(os.path.join('C:\\Users\\user\\Documents\\Msc\\AnalysisHigh\\FinalProject\\si-2018', files[0]))
 
