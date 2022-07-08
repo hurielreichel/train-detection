@@ -16,7 +16,7 @@ def get_data(input_path):
 	
 	with open(input_path,'r') as f:
 
-		print('Parsing annotation files')
+		print('Parsing annotation files \n')
 
 		for line in f:
 			line_split = line.strip().split(',')
@@ -35,8 +35,6 @@ def get_data(input_path):
 
 			if filename not in all_imgs:
 				all_imgs[filename] = {}
-
-				print("filename")
 
 				img = cv2.imread(filename)
 				(rows,cols) = img.shape[:2]
