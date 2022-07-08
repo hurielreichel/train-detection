@@ -21,6 +21,9 @@ from keras.utils import generic_utils
 
 from keras import objectives
 
+import tensorflow as tf 
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR) # stop deprecation warning for old tensorflow version
+
 sys.setrecursionlimit(40000)
 
 parser = OptionParser()
