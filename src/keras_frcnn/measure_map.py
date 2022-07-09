@@ -166,6 +166,7 @@ shared_layers = nn.nn_base(img_input, trainable=True)
 
 # define the RPN, built on the base layers
 num_anchors = len(C.anchor_box_scales) * len(C.anchor_box_ratios)
+print("num_anchors :", num_anchors)
 rpn_layers = nn.rpn(shared_layers, num_anchors)
 
 classifier = nn.classifier(feature_map_input, roi_input, C.num_rois, nb_classes=len(class_mapping), trainable=True)
