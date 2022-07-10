@@ -94,7 +94,7 @@ After following these steps, you should have obtained the images and the final c
 
 [Faster R-CNN (object detection) implemented by Keras for custom data from Google’s Open Images Dataset V4](https://towardsdatascience.com/faster-r-cnn-object-detection-implemented-by-keras-for-custom-data-from-googles-open-images-125f62b9141a)
 
-[Airplanes Detection for Satellite using Faster RCNN] (https://towardsdatascience.com/airplanes-detection-for-satellite-using-faster-rcnn-d307d58353f1)
+[Airplanes Detection for Satellite using Faster RCNN](https://towardsdatascience.com/airplanes-detection-for-satellite-using-faster-rcnn-d307d58353f1)
 
 ### Contact
 
