@@ -41,9 +41,11 @@ The mAP can also be observed below:
 
 ![Loss Curve with 130 epochs](fig/mAP.png)
 
-plot of quality vs. centroids
+We also include a plot of the connection quality polygons and the location of the detected trains. 
 
-correlation plot
+![Connection quality polygons and centroids of detected trains](fig/qual_centroids.png)
+
+Finally, we also have the number of detected trains per class of connection quality (A - D / 1 - 4)
 
 ## Usage
 
