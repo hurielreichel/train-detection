@@ -66,9 +66,9 @@ $ pip install matplotlib==3.5.2
 # pip install pandas==1.3.5
 ``` 
 
-You can also try $ pip install -r requirements.txt , but we do not recommend doing so so, as the order of installation was essemtial to make this environment work as desired. 
+You can also try $ pip install -r requirements.txt , but we do not recommend doing so, as the order of installation was essential to make this environment work as desired. 
 
-Once the the environment is ready, check that all files are in the correct directory. Our training images were in a directory called training_images. If you're using our annotation file, and exectung exactly as we did, then you can simply run the following code chunck to train the model:
+Once the the environment is ready, make sure to verify that all files are in the correct directory. Our training images were in a directory called training_images. If you're using our annotation file, and exectung exactly as we did, then you can simply run the following code chunck to train the model:
 
 ```
 $ python src/train_frcnn.py -o simple -p src/annotation.txt --input_weight_path weights/resnet50_weights_tf_dim_ordering_tf_kernels.h5 --num_epochs 130
