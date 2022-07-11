@@ -11,10 +11,10 @@ from multiprocessing import Pool
 
 # Argument and parameter specification
 parser = argparse.ArgumentParser()
-parser.add_argument('--input' , type=str  , help='input geographic file - railways')
-parser.add_argument('--mask' , type=str  , help='mask geographic file')
-parser.add_argument('--size'   , type=int  , help='Tile size in meters' )
-parser.add_argument('--output' , type=str  , help='Output directory', default='.')
+parser.add_argument('--input' , type=str  , help='input geographic file - railways', default = 'trains-data/railways.geojson')
+parser.add_argument('--mask' , type=str  , help='mask geographic file', default = 'trains-data/luzern.geojson')
+parser.add_argument('--size'   , type=int  , help='Tile size in meters', default = 100 )
+parser.add_argument('--output' , type=str  , help='Output directory', default='img/')
 args = parser.parse_args()
 
 # import osm dataset
