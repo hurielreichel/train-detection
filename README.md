@@ -47,6 +47,8 @@ We also include a plot of the connection quality polygons and the location of th
 
 Finally, we also have the number of detected trains per class of connection quality (A - D / 1 - 4)
 
+![Barplot with number of detected trains per connection quality class](fig/correlation.png)
+
 ## Usage
 
 Please be aware that older versions of tensorflow (1.15.0) and keras (2.0.3) were used, so be careful with the installation. Instructions are given in the following paragraph. 

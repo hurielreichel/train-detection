@@ -21,7 +21,7 @@ args = parser.parse_args()
 tracks = gpd.read_file(args.input)
 tracks = tracks.to_crs(2056)
 geom = tracks.geometry
-buffer = geom.buffer(200)
+buffer = geom.buffer(100)
 labels = gpd.GeoDataFrame(geometry = buffer)
 labels = labels.dissolve()
 labels = labels.explode(index_parts = True).reset_index(drop=True)
